@@ -25,7 +25,7 @@ public class FrontController extends HttpServlet {
 		uri = uri.substring(context.length());
 		
 		try {
-/*		handRequest(request, response);*/
+
 			String callPage = mapping.get_Controller(uri).handRequest(request, response); // uri�� ���� �����ų jsp���� ��� ����
 			if(callPage.startsWith("redirect:")) {
 				response.sendRedirect(callPage.substring("redirect:".length()));
