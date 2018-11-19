@@ -27,6 +27,7 @@ public class FrontController extends HttpServlet {
 		try {
 /*			Controller controller = mapping.get_Controller(uri);
 			String callPage = controller.handRequest(request, response);*/
+			// test
 			String callPage = mapping.get_Controller(uri).handRequest(request, response); // uri에 따라 실행시킬 jsp파일 경로 리턴
 			if(callPage.startsWith("redirect:")) {
 				response.sendRedirect(callPage.substring("redirect:".length()));

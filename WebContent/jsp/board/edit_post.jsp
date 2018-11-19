@@ -1,8 +1,8 @@
+<%@page import="kr.dao.BoardDAO"%>
+<%@page import="kr.vo.BoardVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="util.*"%>
-<%@page import="notice.vo.BoardVO"%>
-<%@page import="notice.dao.BoardDAO"%>
+
 <%@page import="java.sql.*"%>
 
 <%

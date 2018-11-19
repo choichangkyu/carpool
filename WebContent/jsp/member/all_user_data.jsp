@@ -1,10 +1,10 @@
-<%@page import="notice.vo.MemberVO"%>
+<%@page import="kr.dao.MemberDAO"%>
+<%@page import="kr.vo.MemberVO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="notice.dao.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="json" uri="http://www.atg.com/taglibs/json"%>
+
 
 <%
 	if (request.getMethod().equalsIgnoreCase("POST")) {
