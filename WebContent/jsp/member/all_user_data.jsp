@@ -16,4 +16,4 @@
 %>
 [<json:object>
 	<json:property name="id" value="${member.id}" />
-</json:object>]
+</json:object>
