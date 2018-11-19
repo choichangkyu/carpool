@@ -75,8 +75,9 @@ MemberVO member = (MemberVO)session.getAttribute("member");
 			<input class="login" type="text" name="login_id" placeholder="Id">
 			<input class="login" type="password" name="login_password" placeholder="Password">
 	
-			<input type="submit" class="btn btn-default" value="로그인">
+			<input type="submit" class="btn" value="로그인">
 		</form>
+		<input type="button" class="btn" value="네이버로로그인">
 		</c:when>
 		
 		<c:otherwise>
