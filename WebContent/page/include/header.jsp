@@ -21,7 +21,6 @@ MemberVO member = (MemberVO)session.getAttribute("member");
 				alert("비밀번호를 입력하세요");
 				return false;
 			}
-			
 			e.preventDefault();
 
 			$.ajax({
