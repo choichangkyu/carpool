@@ -25,13 +25,12 @@ public class FrontController extends HttpServlet {
 		uri = uri.substring(context.length());
 		
 		try {
-/*			Controller controller = mapping.get_Controller(uri);
-			String callPage = controller.handRequest(request, response);*/
-			String callPage = mapping.get_Controller(uri).handRequest(request, response); // uri¿¡ µû¶ó ½ÇÇà½ÃÅ³ jspÆÄÀÏ °æ·Î ¸®ÅÏ
+/*		handRequest(request, response);*/
+			String callPage = mapping.get_Controller(uri).handRequest(request, response); // uriï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Å³ jspï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			if(callPage.startsWith("redirect:")) {
 				response.sendRedirect(callPage.substring("redirect:".length()));
 			} else {
-				request.getRequestDispatcher(callPage).forward(request, response); // jspÆÄÀÏ °æ·Î¿¡ µû¶ó ÇØ´ç ÆÄÀÏ forward½ÃÅ´
+				request.getRequestDispatcher(callPage).forward(request, response); // jspï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ forwardï¿½ï¿½Å´
 			}
 			/*RequestDispatcher dispatcher = request.getRequestDispatcher(callPage);
 			dispatcher.forward(request, response);*/
