@@ -8,7 +8,6 @@ import java.util.List;
 
 import kr.util.ConnectionFactory;
 import kr.util.JDBCClose;
-import kr.vo.BoardFileVO;
 import kr.vo.BoardVO;
 
 /**
@@ -17,13 +16,13 @@ import kr.vo.BoardVO;
  * @author acorn
  *
  */
-public class BoardDAO {
+public class HugiDAO {
 	/**
 	 * 조회기능
 	 */
 	public List<BoardVO> selectAllBoard() {
 
-		List<BoardVO> boardList = new ArrayList<>();
+		List<BoardVO> hugiList = new ArrayList<>();
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -34,8 +33,8 @@ public class BoardDAO {
 			//sql.append(" select * ");
 			sql.append(" select * ");
 			//sql.append(" to_char(reg_date, 'yyyy-mm-dd') as reg_date ");
-			sql.append("  from c_board ");
-			sql.append(" order by board_no desc ");
+			sql.append("  from c_hugi_board ");
+			//sql.append(" order by board_no desc ");
 
 			pstmt = conn.prepareStatement(sql.toString());
 			ResultSet rs = pstmt.executeQuery();
@@ -52,7 +51,7 @@ public class BoardDAO {
 				board.setId(id);
 				board.setRegDate(regDate);
 
-				boardList.add(board);
+				hugiList.add(board);
 			}
 
 		} catch (Exception e) {
@@ -61,7 +60,7 @@ public class BoardDAO {
 			JDBCClose.close(pstmt, conn);
 		}
 
-		return boardList;
+		return hugiList;
 	}
 
 	/**
@@ -94,13 +93,14 @@ public class BoardDAO {
 		try {
 			conn = new ConnectionFactory().getConnection();
 			StringBuilder sql = new StringBuilder();
-			sql.append("insert into c_board( title, contents ) ");
-			sql.append(" values( ?, ? ) ");
+			sql.append("insert into c_board( title,contents, id ) ");
+			sql.append(" values( ?, ?, ?) ");
 			pstmt = conn.prepareStatement(sql.toString());
 
 			int loc = 1;
 
 			pstmt.setString(loc++, board.getTitle());
+			pstmt.setString(loc++, board.getId());
 			pstmt.setString(loc++, board.getContent());
 
 			pstmt.executeUpdate();
@@ -115,7 +115,7 @@ public class BoardDAO {
 	/**
 	 * 게시판 번호로 조회하는 기능
 	 */
-	public BoardVO selectByNo(int board) {
+	public BoardVO selectByNo(int board_no) {
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -124,39 +124,32 @@ public class BoardDAO {
 		try {
 			conn = new ConnectionFactory().getConnection();
 			StringBuilder sql = new StringBuilder();
-			sql.append("select * ");
+			sql.append("select board_no, title, id, contents, cnt ");
+			sql.append("     , to_char(reg_date, 'yyyy-MM-dd') as reg_date ");
 			sql.append("  from c_board ");
 			sql.append(" where board_no = ? ");
 
 			pstmt = conn.prepareStatement(sql.toString());
-			
-			int loc = 1;
-			pstmt.setInt(loc++, board);
-			System.out.println(board + "dao");
+			pstmt.setInt(1, board_no);
 			ResultSet rs = pstmt.executeQuery();
-			
+
 			if (rs.next()) {
 
-/*				hugiboard.setBoard_no(rs.getInt("board_no"));
-				hugiboard.setTitle(rs.getString("Title"));
-				hugiboard.setId(rs.getString("id"));
-				hugiboard.setContent(rs.getString("content"));
-				hugiboard.setCnt(rs.getInt("cnt"));
-				hugiboard.setRegDate(rs.getString("reg_date"));
-*/
-				int no = rs.getInt("board_no");
+				int boardNo = rs.getInt("board_no");
 				String title = rs.getString("title");
-				String id = rs.getString("id");
+				String writer = rs.getString("writer");
 				String content = rs.getString("content");
 				int cnt = rs.getInt("cnt");
 				String regDate = rs.getString("reg_date");
-				//System.out.println(no +  " : dao");
-				hugiboard = new BoardVO(no, title, id, content, cnt, regDate);
-				//System.out.println(hugiboard + "dao ");
+
+				hugiboard = new BoardVO(boardNo, title, writer, content, cnt, regDate);
+
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			JDBCClose.close(pstmt, conn);
 		}
 
 		return hugiboard;
@@ -223,28 +216,25 @@ public class BoardDAO {
 
 	/**
 	 * 게시물 삭제하는 기능
-	 * @return 
 	 */
-	public int deleteBoard(int no) {
+	public void deleteBoard(int board_no) {
 
 		StringBuilder sql = new StringBuilder();
 		sql.append("delete from c_board, c_board_file ");
 		sql.append(" where board_no = ?  ");
-		
-		int result = 0;
+
 		try (Connection conn = new ConnectionFactory().getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
 			
 			int loc = 1;
 			
-			pstmt.setInt(loc++, no);
+			pstmt.setInt(loc++, board_no);
 
 			pstmt.executeUpdate();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return result;
 
 	}
 
