@@ -6,10 +6,10 @@ $(document).ready(function() {
 		var name = $(event.target).attr("name");
 		switch (name) {
 		case "new_post":
-			location.href = "/Mission-Web-MVC01/board/add_post_form.do";
+			location.href = "/carpool/board/add_post_form.do";
 			break;
 		case "mem_list":
-			location.href = "/Mission-Web-MVC01/page/member/list_user.do";
+			location.href = "/carpool/page/member/list_user.do";
 			break;
 		}
 	});

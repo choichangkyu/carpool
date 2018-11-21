@@ -1,10 +1,10 @@
 <%@page import="java.util.Arrays"%>
-
+<%@page import="util.*"%>
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="kr.vo.MemberVO"%>
-<%@ page import="kr.dao.MemberDAO"%>
+<%@ page import="notice.vo.MemberVO"%>
+<%@ page import="notice.dao.MemberDAO"%>
 <%
 	request.setCharacterEncoding("utf-8");
 	MemberDAO dao = new MemberDAO();
@@ -23,5 +23,5 @@
 <%} else { %>
 	alert("회원삭제 실패");
 <%}%>
-	location.href = "/Mission-Web-MVC01/page/member/list_user.jsp";
+	location.href = "/carpool/page/member/list_user.jsp";
 </script>

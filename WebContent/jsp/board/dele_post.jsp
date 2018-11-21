@@ -15,7 +15,7 @@
 	List<BoardFileVO> fileList = dao.selectFileList(no);
 	
 	for(BoardFileVO fileVO : fileList){
-		File file = new File("C:/lecture/web-workspace/Mission-Web-MVC01/WebContent/upload/" + fileVO.getFileSaveName() );
+		File file = new File("C:/lecture/web-workspace/carpool/WebContent/upload/" + fileVO.getFileSaveName() );
 		if(file.exists())
 			file.delete();
 	}
@@ -29,5 +29,5 @@
 <%} else {%>
 	alert("글 삭제실패");
 <%}%>
-	location.href = "/Mission-Web-MVC01/page/board/list_post.jsp";
+	location.href = "/carpool/page/board/list_post.jsp";
 </script>

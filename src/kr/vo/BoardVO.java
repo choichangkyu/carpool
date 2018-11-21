@@ -2,31 +2,30 @@ package kr.vo;
 
 public class BoardVO {
 	private int no;
+	private int board_no;
 	private String title;
 	private String writer;
 	private String content;
 	private int viewCnt;
+	private String id;
+	private int cnt;
 	private String regDate;
-	
+
 	public BoardVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	
-	public BoardVO(int no, String title, String writer, String content, int viewCnt, String regDate) {
+
+	public BoardVO(int no, int board_no, String title, String writer, String content, int viewCnt, String id, int cnt, String regDate) {
 		super();
 		this.no = no;
+		this.board_no = board_no;
 		this.title = title;
 		this.writer = writer;
 		this.content = content;
 		this.viewCnt = viewCnt;
+		this.id = id;
+		this.cnt = cnt;
 		this.regDate = regDate;
-	}
-
-	@Override
-	public String toString() {
-		return "BoardVO [no=" + no + ", title=" + title + ", writer=" + writer + ", content=" + content + ", viewCnt="
-				+ viewCnt + ", regDate=" + regDate + "]";
 	}
 
 	public int getNo() {
@@ -35,6 +34,14 @@ public class BoardVO {
 
 	public void setNo(int no) {
 		this.no = no;
+	}
+
+	public int getBoard_no() {
+		return board_no;
+	}
+
+	public void setBoard_no(int board_no) {
+		this.board_no = board_no;
 	}
 
 	public String getTitle() {
@@ -69,6 +76,22 @@ public class BoardVO {
 		this.viewCnt = viewCnt;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public int getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+
 	public String getRegDate() {
 		return regDate;
 	}
@@ -76,5 +99,5 @@ public class BoardVO {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
-	
+
 }

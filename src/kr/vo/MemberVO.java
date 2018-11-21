@@ -108,14 +108,9 @@ public class MemberVO {
       this.regDate = regDate;
    }
 
-
-
    @Override
    public String toString() {
       return "MemberVO [id=" + id + ", name=" + name + ", password=" + password + ", email=" + email + ", birth="
             + birth + ", tel=" + tel + ", age=" + age + ", addr=" + addr + ", regDate=" + regDate + "]";
    }
-   
-   
-   
 }

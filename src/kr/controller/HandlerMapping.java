@@ -27,12 +27,10 @@ public class HandlerMapping {
 			e.printStackTrace();
 		}
 		
-//		mappings.put("/board/list_post.do", new ListPost_Controller());
-//		mappings.put("/board/add_post.do", new AddPost_Controller());
-//		mappings.put("/board/add_post_form.do", new AddPostForm_Controller());
 	}
 	
 	public Controller get_Controller(String uri) {
+		//System.out.println(mappings.size());
 		return mappings.get(uri);		
 	}
 

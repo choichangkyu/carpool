@@ -21,7 +21,7 @@ public class DelePost_Controller implements Controller{
 		List<BoardFileVO> fileList = dao.selectFileList(no);
 		
 		for(BoardFileVO fileVO : fileList){
-			File file = new File("C:/lecture/web-workspace/Mission-Web-MVC01/WebContent/upload/" + fileVO.getFileSaveName() );
+			File file = new File("C:/lecture/web-workspace/carpool/WebContent/upload/" + fileVO.getFileSaveName() );
 			if(file.exists())
 				file.delete();
 		}

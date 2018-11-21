@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.controller.Controller;
 
-public class NaverLogin_Controller implements Controller{
+public class NaverLogin_Controller implements Controller {
 	@Override
 	public String handRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		

@@ -12,7 +12,6 @@ public class LoginProcess_Controller implements Controller{
 	@Override
 	public String handRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
-		
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
 		
@@ -25,18 +24,17 @@ public class LoginProcess_Controller implements Controller{
 		
 		String msg = "";
 		if( login_result != null){
-			msg = login_result.getId()+"님 환영합니다";
+			msg = login_result.getId() + "님 환영합니다";
+			
 			HttpSession session = request.getSession();
 			session.setAttribute("login_result", login_result);		
-			
 		} else {
-			msg = "다시 로그인 해주세요 ";
+			msg = "다시 로그인해주세요";
 		}
 		request.setAttribute("msg", msg);
 		
 		return "/jsp/login/loginProcess.jsp";
 	}
-	
 /*	@Override
 	public String handRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		return "redirect:" + request.getContextPath() + "/login/login.do";

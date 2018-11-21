@@ -11,7 +11,6 @@ public class AddUser_Controller implements Controller{
 	
 	@Override
 	public String handRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
 		MemberDAO dao = new MemberDAO();
 		MemberVO user = new MemberVO();
 		
