@@ -16,7 +16,6 @@ public class FrontController extends HttpServlet {
 		String proploLocation = config.getInitParameter("proplocation");
 		mapping = new HandlerMapping(proploLocation);
 	}
-	test
 	@Override
 	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -26,6 +25,7 @@ public class FrontController extends HttpServlet {
 		
 		try {
 			Controller controller = mapping.get_Controller(uri);
+			System.out.println(uri);
 			String callPage = controller.handRequest(request, response); 
 			if(callPage.startsWith("redirect:")) {
 				response.sendRedirect(callPage.substring("redirect:".length()));
