@@ -20,14 +20,14 @@
 	board.setNo(no);
 
 	BoardDAO dao = new BoardDAO();
-	int cnt = dao.updateBoard(board);
+	/* int cnt = dao.updateBoard(board); */
 %>
 <script>
 	
-<%if (cnt != 0) {%>
+<%-- <%if (cnt != 0) {%>
 	alert("글 수정완료");
 <%} else {%>
 	alert("글 수정실패");
-<%}%>
+<%}%> --%>
 	location.href = "/Mission-Web/page/board/detail_post.jsp?no=<%= no %>";
 </script>

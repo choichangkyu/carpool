@@ -12,13 +12,13 @@
 
 	BoardDAO dao = new BoardDAO();
 	
-	List<BoardFileVO> fileList = dao.selectFileList(no);
+	/* List<BoardFileVO> fileList = dao.selectFileList(no); 
 	
 	for(BoardFileVO fileVO : fileList){
 		File file = new File("C:/lecture/web-workspace/carpool/WebContent/upload/" + fileVO.getFileSaveName() );
 		if(file.exists())
 			file.delete();
-	}
+	}*/
 	//dao.deleteFile(no);
 
 	int cnt = dao.deleteBoard(no);

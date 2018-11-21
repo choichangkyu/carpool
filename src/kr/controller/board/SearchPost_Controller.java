@@ -17,8 +17,8 @@ public class SearchPost_Controller implements Controller{
 		
 		BoardDAO dao = new BoardDAO();
 		
-		//ÆäÀÌÂ¡
-		List<BoardVO> allBoardList = dao.searchAllBoard(search, category);
+		//ï¿½ï¿½ï¿½ï¿½Â¡
+		/*List<BoardVO> allBoardList = dao.searchAllBoard(search, category);
 		String r_page = request.getParameter("page");
 
 		int _page = r_page == null ? 1 : Integer.parseInt(r_page);
@@ -31,12 +31,12 @@ public class SearchPost_Controller implements Controller{
 		int step = (int) Math.ceil((double) allBoardList.size() / post_size);
 		
 		System.out.println(allBoardList.size());
-		//º¯¼ö
+		//ï¿½ï¿½ï¿½ï¿½
 		request.setAttribute("search", search);
 		request.setAttribute("category", category);
 		request.setAttribute("step", step);
 		request.setAttribute("boardList", BoardList);
-		
+		*/
 		return "/page/board/search_post.jsp";
 	}
 

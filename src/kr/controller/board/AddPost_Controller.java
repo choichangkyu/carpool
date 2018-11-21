@@ -16,9 +16,9 @@ public class AddPost_Controller implements Controller {
 		board.setWriter(request.getParameter("writer"));
 		board.setContent(request.getParameter("content"));
 
-		int cnt = dao.insertBoard(board);
+		/*int cnt = dao.insertBoard(board);
 		request.setAttribute("cnt", cnt);
-		
+		*/
 		return "/jsp/board/add_post.jsp";
 	}
 
