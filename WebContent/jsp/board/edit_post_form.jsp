@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="notice.dao.BoardDAO"%>
-<%@page import="notice.vo.BoardVO"%>
+<%@page import="kr.dao.BoardDAO"%>
+<%@page import="kr.vo.BoardVO"%>
 <%
 	request.setCharacterEncoding("utf-8");
 	int no = request.getParameter("no") == null ? 0 : Integer.parseInt(request.getParameter("no"));

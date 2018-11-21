@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="notice.vo.MemberVO"%>
-<%@ page import="notice.dao.MemberDAO"%>
+<%@ page import="kr.vo.MemberVO"%>
+<%@ page import="kr.dao.MemberDAO"%>
 <%
 	request.setCharacterEncoding("utf-8");
 	MemberDAO dao = new MemberDAO();
