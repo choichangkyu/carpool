@@ -20,13 +20,13 @@ $(document).ready(function() {
 	});
 	$(function() { 	
 		$("div#start_place").postcodify({
-        	insertAddress : "input#start_place",
+        	insertAddress : "input#start_place_name",
         	hideOldAddresses : false
     	}); 
 	});
 	$(function() { 
 		$("div#end_place").postcodify({
-        	insertAddress : "input#end_place",
+        	insertAddress : "input#end_place_name",
         	hideOldAddresses : false
     	}); 
 	});
@@ -52,7 +52,7 @@ $(document).ready(function() {
     var drawLine = null; // 선
     var bounds = null;
 	
-	$("input.input_place").on('change', function(e){
+	$("input.input_place_name").on('change', function(e){
 		var geocoder = new daum.maps.services.Geocoder();
 	
 		// 주소로 좌표를 검색합니다
@@ -63,23 +63,25 @@ $(document).ready(function() {
 		    	 
 		    	var coords = new daum.maps.LatLng(result[0].y, result[0].x);
 
-		    	if( $(e.target).attr('name') == 'start_place'){
+		    	if( $(e.target).attr('name') == 'start_place_name'){
 					// 결과값으로 받은 위치를 마커로 표시합니다
 					if(start_marker != null)
 						start_marker.setMap(null);
 			        start_marker = new daum.maps.Marker({
 			            map: map,
 			            position: coords
-			        }); 
+			        });
+			        $("input[name=start_place]").val(result[0].y +", "+ result[0].x);
 				}
-				if( $(e.target).attr('name') == 'end_place'){
+				if( $(e.target).attr('name') == 'end_place_name'){
 					// 결과값으로 받은 위치를 마커로 표시합니다
 					if(end_marker != null)
 						end_marker.setMap(null);
 					end_marker = new daum.maps.Marker({
 						map: map,
 						position: coords
-					}); 
+					});
+					$("input[name=end_place]").val(result[0].y +", "+ result[0].x);
 				}
 				
 				if( start_marker != null && end_marker != null ){

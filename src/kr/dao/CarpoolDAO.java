@@ -23,8 +23,8 @@ public class CarpoolDAO {
 
 			sql.append(" insert into c_carpool_post (no, writer_id, start_date, ");
 			sql.append(" start_place, start_place_name, start_time, end_place, end_place_name, ");
-			sql.append(" smoke, money, user_cnt, post_type, add_info ");
-			sql.append(" values (seq_c_carpool_post_no.nextval , ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ) ");
+			sql.append(" smoke, money, user_cnt, post_type, add_info ) ");
+			sql.append(" values (seq_c_carpool_post_no.nextval , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ) ");
 
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, post.getId());

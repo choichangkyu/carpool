@@ -10,10 +10,11 @@ import kr.vo.CarpoolVO;
 public class AddCarpool_Controller implements Controller{
 	public String handRequest(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		// carpool
+		request.setCharacterEncoding("utf-8");
 		CarpoolDAO dao = new CarpoolDAO();
 		CarpoolVO post = new CarpoolVO();
 
-		System.out.println(request.getParameter("money"));
+		System.out.println(request.getParameter("smoke"));
 		System.out.println(request.getParameter("start_date"));
 		post.setId(request.getParameter("writer_id"));
 		post.setStart_date(request.getParameter("start_date"));

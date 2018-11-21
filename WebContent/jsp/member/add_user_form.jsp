@@ -4,6 +4,8 @@
 <script src="/carpool/assets/js/httpRequest.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		//alert( sessionStorage.getItem('token') );
+		
 		var is_idCheck = false;
 		$("form[name=signform]").submit(function() {
 			return sign_check();
@@ -15,10 +17,26 @@
 		
 		function idCheck(){
 			var id = document.signform.id;
-			var params = {
-					id : id.value
-				};
-			sendProcess("GET", "/carpool/jsp/member/all_user_data.jsp", params, callback);
+			$.ajax({
+				url : '<%=request.getContextPath()%>/member/check_user.do',
+				type : 'post',
+				data : {
+					'id' : id.value
+				},
+				success : function(data){
+					if(data == 1){
+						debugTrace("중복된 아이디입니다");
+						is_idCheck = false;
+					} else {
+						debugTrace("사용가능한 아이디입니다");
+						is_idCheck = true;
+					}
+				},
+				error : function(xhr, ajaxOptions, thrownError) {
+					alert(xhr.status);
+					alert(thrownError);
+				}
+			});
 		}
 		
 		function callback(){
@@ -27,13 +45,6 @@
 					var memberList = eval(httpRequest.responseText.trim());
 					
 					var id = document.signform.id.value;
-					if(memberList[0]['id'] == id){
-						debugTrace("중복된 아이디입니다");
-						is_idCheck = false;
-					} else {
-						debugTrace("");
-						is_idCheck = true;
-					}
 					
 				}
 			}

@@ -16,7 +16,7 @@ public class FrontController extends HttpServlet {
 		String proploLocation = config.getInitParameter("proplocation");
 		mapping = new HandlerMapping(proploLocation);
 	}
-	test
+
 	@Override
 	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

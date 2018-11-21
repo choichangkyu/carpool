@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="/carpool/assets/css/add_form.css">
 <script src="<%= request.getContextPath() %>/assets/js/place_search.js"></script>
-<script src="<%= request.getContextPath() %>/assets/js/add_post.js"></script>
+<script src="<%= request.getContextPath() %>/assets/js/add_carpool.js"></script>
 <script>
 $(document).ready(function(){
 	$("form[name=cForm]").submit(function(e) {
@@ -66,6 +66,13 @@ $(document).ready(function(){
 			탑승자 : <input type="radio" value="rider" name="post_type">
 			</div>
 		</div>
+		<div class="input_wrap">
+			<div>
+			<span>흡연여부</span>
+			O <input type="radio" value="0" name="smoke">
+			X <input type="radio" value="1" name="post_type">
+			</div>
+		</div>
 		<div>
 			<!-- writer_id -->
 			<input type="hidden" name="writer_id" value="cck9003">
@@ -84,12 +91,14 @@ $(document).ready(function(){
 			<label for="start_place">출발지</label>
 			<!-- start_place  -->
 			<div id="start_place"></div>
+			<input type="hidden" name="start_place_name" id="start_place_name" class="input_place_name">
 			<input type="hidden" name="start_place" id="start_place" class="input_place">
 		</div>
 		<div class="input_wrap">
 			<label for="end_place">도착지</label>
 			<!-- end_place  -->
 			<div id="end_place"></div>
+			<input type="hidden" name="end_place_name" id="end_place_name" class="input_place_name">
 			<input type="hidden" name="end_place" id="end_place" class="input_place">
 		</div>
 		<div class="input_wrap">

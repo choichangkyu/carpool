@@ -158,7 +158,7 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		MemberVO member = new MemberVO();
+		MemberVO member = null;
 		try {
 			conn = new ConnectionFactory().getConnection();
 			StringBuilder sql = new StringBuilder();
@@ -175,6 +175,7 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 			
 			if (rs.next()) {
+				member = new MemberVO();
 				member.setName(rs.getString("name"));
 				member.setId(rs.getString("id"));
 				member.setEmail(rs.getString("email"));

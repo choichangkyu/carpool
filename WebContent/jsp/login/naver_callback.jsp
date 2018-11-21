@@ -3,7 +3,7 @@
 <script src="/carpool/assets/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script type="text/javascript">
-	var naver_id_login = new naver_id_login("f7aj3kWnxJf7Qzs_qweZ",	"http://127.0.0.1:8888/carpool/login/naver_login.do");
+	var naver_id_login = new naver_id_login("f7aj3kWnxJf7Qzs_qweZ",	"http://localhost:8888/carpool/login/naver_login.do");
 	// 접근 토큰 값 출력
 	//alert(naver_id_login.oauthParams.access_token);
 	// 네이버 사용자 프로필 조회
@@ -20,9 +20,9 @@
 		console.log(email);
 		console.log(id);
 		console.log(loginId);
-
-		$.ajax({
-			url : 'http://127.0.0.1:8888/carpool/member/add_user.do',
+		
+		/* $.ajax({
+			url : 'http://localhost:8888/carpool/member/add_user.do',
 			type : 'post',
 			data : {
 				'name' : name,
@@ -41,7 +41,12 @@
 				alert(xhr.status);
 				alert(thrownError);
 			}
-		});
+		}); */
+		var opener = window.opener;
+		opener.sessionStorage.setItem('token', naver_id_login.oauthParams.access_token);
+		alert('세션저장');
+		opener.location.href="http://localhost:8888/carpool/member/add_user_form.do";
+		window.close();
 	}
 	function callback(data) {
 		if (data.trim() == 1) {

@@ -87,7 +87,8 @@ MemberVO member = (MemberVO)session.getAttribute("member");
 			<li><a href="<%=request.getContextPath()%>/board/hugi_board_list.do">후기게시판</a></li>
 			<li><a href="<%=request.getContextPath()%>/board/free_board_list.do">자유게시판</a></li>
 			<li><a href="<%=request.getContextPath()%>/member/add_user_form.do">회원가입</a></li>
-			<li><a href="<%=request.getContextPath()%>/carpool/add_carpool.do">카풀등록</a></li>
+			<li><a href="<%=request.getContextPath()%>/carpool/add_carpool_form.do">카풀등록</a></li>
+			<li><a href="<%=request.getContextPath()%>/carpool/list_carpool.do">카풀목록</a></li>
 		</ul>
 	</nav>
 	
