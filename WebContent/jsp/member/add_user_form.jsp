@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="/Mission-Web-MVC01/assets/css/add_user_form.css">
-<script src="/Mission-Web-MVC01/assets/js/httpRequest.js"></script>
+<link rel="stylesheet" href="/carpool/assets/css/add_user_form.css">
+<script src="/carpool/assets/js/httpRequest.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		var is_idCheck = false;
@@ -18,7 +18,7 @@
 			var params = {
 					id : id.value
 				};
-			sendProcess("GET", "/Mission-Web-MVC01/jsp/member/all_user_data.jsp", params, callback);
+			sendProcess("GET", "/carpool/jsp/member/all_user_data.jsp", params, callback);
 		}
 		
 		function callback(){
@@ -142,7 +142,7 @@
 <hr>
 <div id="add_user_form">
 	<h3>회원가입</h3>
-	<form action="/Mission-Web-MVC01/jsp/member/add_user.jsp" name="signform"
+	<form action="/carpool/jsp/member/add_user.jsp" name="signform"
 		method="post">
 		<div id="id">
 			<label for="id">* 아이디 : </label><input type="text" name="id">

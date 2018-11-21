@@ -10,11 +10,8 @@ public class AddUserForm_Controller implements Controller{
 	
 	@Override
 	public String handRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		MemberDAO dao = new MemberDAO();
-
-		request.setAttribute("memberList", dao.selectAllMember());
 		
-		return "/jsp/login/logout.jsp";
+		return "/page/member/add_user.jsp";
 	}
 
 }
