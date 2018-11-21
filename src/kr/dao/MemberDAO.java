@@ -13,9 +13,9 @@ import kr.vo.MemberVO;
 
 public class MemberDAO {
 	/**
-	 * ¸ðµç È¸¿ø Á¶È¸
+	 * ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½È¸
 	 * 
-	 * @return MemberVO°´Ã¼ ¸®½ºÆ®
+	 * @return MemberVOï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½Æ®
 	 */
 	public List<MemberVO> selectAllMember() {
 		Connection conn = null;
@@ -83,9 +83,9 @@ public class MemberDAO {
 	}
 
 	/**
-	 * È¸¿ø Ãß°¡
+	 * È¸ï¿½ï¿½ ï¿½ß°ï¿½
 	 * @param board
-	 * @return ¹Ý¿µµÈ Çà °¹¼ö
+	 * @return ï¿½Ý¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	 */
 	public int insertMember(MemberVO member) {
 		Connection conn = null;
@@ -95,24 +95,22 @@ public class MemberDAO {
 			conn = new ConnectionFactory().getConnection();
 			StringBuilder sql = new StringBuilder();
 
-			sql.append(" insert into t_member (id, name, password, email_id, ");
-			sql.append(" email_domain, tel1, tel2, tel3, post, basic_addr, detail_addr) ");
-			sql.append(" values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ) ");
+			sql.append(" insert into c_member (name, id, password, email, birth, tel, age, addr) ");
+			sql.append(" values (?, ?, ?, ?, ?, ?, ?, ?) ");
 
 			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setString(1, member.getId());
-			pstmt.setString(2, member.getName());
+			
+			pstmt.setString(1, member.getName());
+			pstmt.setString(2, member.getId());
 			pstmt.setString(3, member.getPassword());
-			pstmt.setString(4, member.getEmail_id());
-			pstmt.setString(5, member.getEmail_domain());
-			pstmt.setString(6, member.getTel1());
-			pstmt.setString(7, member.getTel2());
-			pstmt.setString(8, member.getTel3());
-			pstmt.setString(9, member.getPost());
-			pstmt.setString(10, member.getBasic_addr());
-			pstmt.setString(11, member.getDetail_addr());
+			pstmt.setString(4, member.getEmail());
+			pstmt.setString(5, member.getBirth());
+			pstmt.setString(6, member.getTel());
+			pstmt.setInt(7, member.getAge());
+			pstmt.setString(8, member.getAddr());
 
 			result = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -121,9 +119,9 @@ public class MemberDAO {
 	}
 	
 	/**
-	 * ·Î±×ÀÎ È¸¿ø Á¶È¸
+	 * ï¿½Î±ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½È¸
 	 * @param no
-	 * @return °Ô½Ã±Û °´Ã¼
+	 * @return ï¿½Ô½Ã±ï¿½ ï¿½ï¿½Ã¼
 	 */
 	public MemberVO selectForLogin(MemberVO member) {
 		Connection conn = null;
@@ -134,8 +132,8 @@ public class MemberDAO {
 			conn = new ConnectionFactory().getConnection();
 			StringBuilder sql = new StringBuilder();
 
-			sql.append(" select id, name, type ");
-			sql.append(" from t_member ");
+			sql.append(" select id, name");
+			sql.append(" from c_member ");
 			sql.append(" where id = ? ");
 			sql.append(" and password = ? ");
 
@@ -150,7 +148,6 @@ public class MemberDAO {
 				
 				result.setId(rs.getString("id"));
 				result.setName(rs.getString("name"));
-				result.setType(rs.getString("type"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -160,9 +157,9 @@ public class MemberDAO {
 	}
 
 	/**
-	 * ¾ÆÀÌµð·Î È¸¿ø Á¶È¸
+	 * ï¿½ï¿½ï¿½Ìµï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½È¸
 	 * @param no
-	 * @return °Ô½Ã±Û °´Ã¼
+	 * @return ï¿½Ô½Ã±ï¿½ ï¿½ï¿½Ã¼
 	 */
 	public MemberVO selectById(String id) {
 		Connection conn = null;
@@ -187,7 +184,7 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				member.setId(rs.getString("id"));
+				/*member.setId(rs.getString("id"));
 				member.setName(rs.getString("name"));
 				member.setEmail_id(rs.getString("email_id"));
 				member.setEmail_domain(rs.getString("email_domain"));
@@ -197,7 +194,7 @@ public class MemberDAO {
 				member.setPost(rs.getString("post"));
 				member.setBasic_addr(rs.getString("basic_addr"));
 				member.setDetail_addr(rs.getString("detail_addr"));
-				member.setRegDate(rs.getString("reg_date"));
+				member.setRegDate(rs.getString("reg_date"));*/
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

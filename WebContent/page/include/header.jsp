@@ -5,9 +5,15 @@
 <%
 MemberVO member = (MemberVO)session.getAttribute("member");
 %>
-<link rel="stylesheet" href="/Mission-Web-MVC01/assets/css/header.css">
+<link rel="stylesheet" href="/carpool/assets/css/header.css">
+<link rel="stylesheet" href="/carpool/assets/css/login.css">
+
 <script type="text/javascript">
 	$(document).ready(function(){
+		
+		var modal = document.getElementById('myModal');
+		var modalContent = document.getElementsByClassName('modal_content')[0];
+		 
 		$("form[name=login_form]").submit(function(e){
 			var id = $("input[name=login_id]").val();
 			var password = $("input[name=login_password]").val();
@@ -40,6 +46,18 @@ MemberVO member = (MemberVO)session.getAttribute("member");
 			return true;
 		});
 		
+		 
+		$("#loginBtn").click(function(){
+			
+			modal.style.display ="block";
+			modalContent.style.display = "inline-block";
+			
+		}); 
+		
+		$('.close').click(function(){
+			modal.style.display ="none";
+		});
+		
 		$("input[name=logout]").click(function(){
 			$.ajax({
 				url : '<%=request.getContextPath()%>/login/logout.do',
@@ -50,41 +68,62 @@ MemberVO member = (MemberVO)session.getAttribute("member");
 				}
 			});
 		});
+		
 		function callback(data) {
 			alert(data.trim());
 			location.reload();
 		}
 	});
+	
 </script>
 <div id="header_content">
-	<a id="main_link" href="/Mission-Web-MVC01"> 
-		<img alt="google_logo" src="/Mission-Web-MVC01/assets/images/logo.png">
+	<a id="main_link" href="/carpool"> 
+		<img alt="google_logo" src="/carpool/assets/images/logo.png">
 	</a>
 	<nav id="gnb">
 		<ul>
 			<li><a href="<%=request.getContextPath()%>/member/list_user.do">회원관리</a></li>
 			<li><a href="<%=request.getContextPath()%>/board/list_post.do">게시판</a></li>
-			<li><a href="<%=request.getContextPath()%>/member/add_user.do">회원가입</a></li>
+			<li><a href="<%=request.getContextPath()%>/member/add_user_form.do">회원가입</a></li>
 		</ul>
 	</nav>
 	
 	<div id="user_info">
 	<c:choose>
 		<c:when test="${ empty login_result }">
-		<form name="login_form" action="<%=request.getContextPath()%>/login/login.do" method="POST">
-			<input class="login" type="text" name="login_id" placeholder="Id">
-			<input class="login" type="password" name="login_password" placeholder="Password">
-	
-			<input type="submit" class="btn" value="로그인">
-		</form>
-		<input type="button" class="btn" value="네이버로로그인">
+			<input type="button" class="btn" id="loginBtn" value="로그인">
 		</c:when>
 		
 		<c:otherwise>
-			<a>${ login_result.name }님</a>
+			<a>${ login_result.name }님 안녕하세요</a>
 			<input class="btn" type="button" name="logout" value="로그아웃">	
 			<a href="<%=request.getContextPath()%>/member/detail_user.jsp?id=${login_result.id}">마이페이지</a>
 		</c:otherwise>
 	</c:choose>
+		
 	</div>
+	
+		<div id="myModal" class="modal">
+			<div class="modal_content">
+				<span class="close">&times;</span>
+				<form action ="<%= request.getContextPath() %>/login/loginProcess.do" name="login_form" class="loginBox">
+					<table>
+						<tr>
+							<td align="center">아이디</td>
+							<td><input type="text" name="login_id"></td>
+						</tr>
+						<tr>
+							<td align="center">패스워드</td>
+							<td><input type="password" name="login_password"></td>
+						</tr>	
+					</table>
+				<div id="login_btn" align= "right">	
+					<input type="submit" value="로그인">
+				</div>	
+				</form>	
+				<div class="loginBox">
+					<jsp:include page="/jsp/login/login_naver.jsp"/>
+				</div>
+			</div>
+		</div>
 </div>

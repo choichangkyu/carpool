@@ -1,6 +1,7 @@
 package kr.controller;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class FrontController extends HttpServlet {
+	
 	private HandlerMapping mapping;
 	
 	@Override
@@ -20,18 +22,23 @@ public class FrontController extends HttpServlet {
 	@Override
 	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		request.setCharacterEncoding("utf-8");
+		
 		String uri = request.getRequestURI();
+		System.out.println(uri);	//ok
 		String context = request.getContextPath();
-		uri = uri.substring(context.length());
+		System.out.println(context);	//ok
+		uri = uri.substring(context.length());	
 		
 		try {
 /*			Controller controller = mapping.get_Controller(uri);
 			String callPage = controller.handRequest(request, response);*/
-			String callPage = mapping.get_Controller(uri).handRequest(request, response); // uri¿¡ µû¶ó ½ÇÇà½ÃÅ³ jspÆÄÀÏ °æ·Î ¸®ÅÏ
+			String callPage = mapping.get_Controller(uri).handRequest(request, response); // uriï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Å³ jspï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			
 			if(callPage.startsWith("redirect:")) {
 				response.sendRedirect(callPage.substring("redirect:".length()));
 			} else {
-				request.getRequestDispatcher(callPage).forward(request, response); // jspÆÄÀÏ °æ·Î¿¡ µû¶ó ÇØ´ç ÆÄÀÏ forward½ÃÅ´
+				request.getRequestDispatcher(callPage).forward(request, response); // jspï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ forwardï¿½ï¿½Å´
 			}
 			/*RequestDispatcher dispatcher = request.getRequestDispatcher(callPage);
 			dispatcher.forward(request, response);*/

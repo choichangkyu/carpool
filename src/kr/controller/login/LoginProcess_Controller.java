@@ -12,6 +12,7 @@ public class LoginProcess_Controller implements Controller{
 	@Override
 	public String handRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
+		
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
 		
@@ -24,24 +25,18 @@ public class LoginProcess_Controller implements Controller{
 		
 		String msg = "";
 		if( login_result != null){
-			switch(login_result.getType()) {
-			case "A":
-				msg = "°ü¸®ÀÚ´Ô È¯¿µÇÕ´Ï´Ù";
-				break;
-			case "U":
-				msg = login_result.getId() + "´Ô È¯¿µÇÕ´Ï´Ù";
-				break;
-			}
+			msg = login_result.getId()+"ë‹˜ í™˜ì˜í•©ë‹ˆë‹¤";
 			HttpSession session = request.getSession();
 			session.setAttribute("login_result", login_result);		
 			
 		} else {
-			msg = "¾ÆÀÌµğ ¶Ç´Â ÆĞ½º¿öµå°¡ Àß¸øµÇ¾ú½À´Ï´Ù";
+			msg = "ë‹¤ì‹œ ë¡œê·¸ì¸ í•´ì£¼ì„¸ìš” ";
 		}
 		request.setAttribute("msg", msg);
 		
 		return "/jsp/login/loginProcess.jsp";
 	}
+	
 /*	@Override
 	public String handRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		return "redirect:" + request.getContextPath() + "/login/login.do";

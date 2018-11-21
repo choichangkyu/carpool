@@ -18,7 +18,7 @@
 			var params = {
 					id : id.value
 				};
-			sendProcess("GET", "/Mission-Web-MVC01/jsp/member/all_user_data.jsp", params, callback);
+			sendProcess("GET", "/carpool/jsp/member/all_user_data.jsp", params, callback);
 		}
 		
 		function callback(){
@@ -63,15 +63,13 @@
 
 			//전화번호
 			var tell_value = document.signform.tel1.value;
-			var tel2_value = document.signform.tel2.value;
-			var tel3_value = document.signform.tel3.value;
+			
 			var tel1_error_msg = document
 					.querySelector('div#tel span');
 
-			if (tell_value.length > 3 || tel2_value.length > 4
-					|| tel3_value.length > 4) {
+			if (tell_value.length != 11) {
 				is_ok = false;
-				tel1_error_msg.innerText = '3자,4자,4자 이하로 입력해주세요';
+				tel1_error_msg.innerText = '11자리 이하로 입력해주세요';
 			} else {
 				tel1_error_msg.innerText = '';
 			}
@@ -83,9 +81,9 @@
 			if (!check_value("basic_addr", false, 200))
 				is_ok = false;
 			//상세주소
-			if (!check_value("detail_addr", false, 200))
+			/* if (!check_value("detail_addr", false, 200))
 				is_ok = false;
-
+ 			*/
 			if (is_ok) {
 				return is_ok;
 			} else {
@@ -142,7 +140,7 @@
 <hr>
 <div id="add_user_form">
 	<h3>회원가입</h3>
-	<form action="/Mission-Web-MVC01/jsp/member/add_user.jsp" name="signform"
+	<form action="/carpool/member/add_user.do" name="signform"
 		method="post">
 		<div id="id">
 			<label for="id">* 아이디 : </label><input type="text" name="id">
@@ -164,25 +162,25 @@
 				placeholder="xxx@xxx.com" pattern="{30}@{20}" /><br> <span
 				class="error_msg"></span><br>
 		</div>
-
+		
+		<div>
+			<label for ="age">나이 : </label><input type="text" name ="age">
+			<br> <span class="error_msg"></span><br>
+		</div>
+		
+		<div>
+			<label for ="birth">생년월일 : </label><input type ="text" placeholder =" -없이 6자리를 입력해주세요" name ="birth">
+			<br> <span class="error_msg"></span><br>
+		</div>
+		
 		<div id="tel">
-			<label for="tel1">전화번호 : </label> <input type="text" name="tel1">
-			<input type="text" name="tel2"> <input type="text"
-				name="tel3"><br> <span class="error_msg"></span><br>
+			<label for="tel1">전화번호 : </label> <input type="text" name="tel1" placeholder="-없이 입력해주세요">
+			<br><span class="error_msg"></span><br>
 		</div>
-
-		<div id="post">
-			<label for="post">우편번호 : </label><input type="text" name="post"><br>
-			<span class="error_msg"></span><br>
-		</div>
-
+		
 		<div id="basic_addr">
-			<label for="basic_addr">기본주소 : </label><input type="text"
+			<label for="basic_addr">주소 : </label><input type="text"
 				name="basic_addr"><br> <span class="error_msg"></span><br>
-		</div>
-		<div id="detail_addr">
-			<label for="detail_addr">상세주소 : </label><input type="text"
-				name="detail_addr"><br> <span class="error_msg"></span><br>
 		</div>
 
 		<input type="submit" value="회원가입" name="submit">

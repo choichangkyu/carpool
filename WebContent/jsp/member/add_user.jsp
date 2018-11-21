@@ -13,11 +13,11 @@
 	member.setName(request.getParameter("name"));
 	member.setPassword(request.getParameter("password"));
 	
-	if (!request.getParameter("email").isEmpty()) {
+	/* if (!request.getParameter("email").isEmpty()) {
 		String[] email = request.getParameter("email").split("@");
 		member.setEmail_id(email[0]);
 		member.setEmail_domain(email[1]);
-	}
+	} 
 
 	member.setTel1(request.getParameter("tel1"));
 	member.setTel2(request.getParameter("tel2"));
@@ -25,7 +25,7 @@
 	member.setPost(request.getParameter("post"));
 	member.setBasic_addr(request.getParameter("basic_addr"));
 	member.setDetail_addr(request.getParameter("detail_addr"));
-
+	*/
 	MemberDAO dao = new MemberDAO();
 
 	int cnt = dao.insertMember(member);
