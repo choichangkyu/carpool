@@ -4,8 +4,8 @@
 <%@ page import="kr.dao.BoardDAO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
-	BoardDAO dao = new BoardDAO();
-	pageContext.setAttribute("boardList", dao.selectBoardList(1, 5));
+	/* BoardDAO dao = new BoardDAO();
+	pageContext.setAttribute("boardList", dao.selectBoardList(1, 5)); */
 %>
 <div align="center">
 	<hr>

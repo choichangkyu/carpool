@@ -14,7 +14,7 @@
 				location.href = "add_post.jsp";
 				break;
 			case "mem_list":
-				location.href = "/Mission-Web-MVC01/page/member/list_user.jsp";
+				location.href = "/carpool/page/member/list_user.jsp";
 				break;
 			}
 		});
@@ -32,7 +32,7 @@
 	<hr>
 	<h3>"${ search }" 검색 결과</h3>
 	
-	<form class="R" action="/Mission-Web-MVC01/page/board/search_post.jsp" name="search" method="GET">
+	<form class="R" action="/carpool/page/board/search_post.jsp" name="search" method="GET">
 		<select name="category">
 			<option value="">선택하세요</option>
 			<option value="writer">글쓴이</option>

@@ -44,7 +44,7 @@
 	<hr>
 	<h3>회원 목록</h3>
 	<form name="dele_user_form"
-		action="/Mission-Web-MVC01/jsp/member/dele_users.jsp" method="POST">
+		action="/carpool/jsp/member/dele_users.jsp" method="POST">
 		<table class="list_table">
 			<tr>
 				<th style="width: 20px;"><input type="checkbox"

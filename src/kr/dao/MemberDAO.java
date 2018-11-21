@@ -13,9 +13,9 @@ import kr.vo.MemberVO;
 
 public class MemberDAO {
 	/**
-	 * ¸ðµç È¸¿ø Á¶È¸
+	 * ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½È¸
 	 * 
-	 * @return MemberVO°´Ã¼ ¸®½ºÆ®
+	 * @return MemberVOï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½Æ®
 	 */
 	public List<MemberVO> selectAllMember() {
 		Connection conn = null;
@@ -83,9 +83,9 @@ public class MemberDAO {
 	}
 
 	/**
-	 * È¸¿ø Ãß°¡
+	 * È¸ï¿½ï¿½ ï¿½ß°ï¿½
 	 * @param board
-	 * @return ¹Ý¿µµÈ Çà °¹¼ö
+	 * @return ï¿½Ý¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	 */
 	public int insertMember(MemberVO member) {
 		Connection conn = null;
@@ -95,22 +95,18 @@ public class MemberDAO {
 			conn = new ConnectionFactory().getConnection();
 			StringBuilder sql = new StringBuilder();
 
-			sql.append(" insert into t_member (id, name, password, email_id, ");
-			sql.append(" email_domain, tel1, tel2, tel3, post, basic_addr, detail_addr) ");
-			sql.append(" values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ) ");
+			sql.append(" insert into c_member (email, id, name, password, ");
+			sql.append(" birth, tel, age) ");
+			sql.append(" values (?, ?, ?, ?, ?, ? , ? ) ");
 
 			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setString(1, member.getId());
-			pstmt.setString(2, member.getName());
-			pstmt.setString(3, member.getPassword());
-			pstmt.setString(4, member.getEmail_id());
-			pstmt.setString(5, member.getEmail_domain());
-			pstmt.setString(6, member.getTel1());
-			pstmt.setString(7, member.getTel2());
-			pstmt.setString(8, member.getTel3());
-			pstmt.setString(9, member.getPost());
-			pstmt.setString(10, member.getBasic_addr());
-			pstmt.setString(11, member.getDetail_addr());
+			pstmt.setString(1, member.getEmail());
+			pstmt.setString(2, member.getId());
+			pstmt.setString(3, member.getName());
+			pstmt.setString(4, member.getPassword());
+			pstmt.setString(5, member.getBirth());
+			pstmt.setString(6, member.getTel());
+			pstmt.setInt(7, member.getAge());
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -121,9 +117,9 @@ public class MemberDAO {
 	}
 	
 	/**
-	 * ·Î±×ÀÎ È¸¿ø Á¶È¸
+	 * ï¿½Î±ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½È¸
 	 * @param no
-	 * @return °Ô½Ã±Û °´Ã¼
+	 * @return ï¿½Ô½Ã±ï¿½ ï¿½ï¿½Ã¼
 	 */
 	public MemberVO selectForLogin(MemberVO member) {
 		Connection conn = null;
@@ -160,9 +156,9 @@ public class MemberDAO {
 	}
 
 	/**
-	 * ¾ÆÀÌµð·Î È¸¿ø Á¶È¸
+	 * ï¿½ï¿½ï¿½Ìµï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½È¸
 	 * @param no
-	 * @return °Ô½Ã±Û °´Ã¼
+	 * @return ï¿½Ô½Ã±ï¿½ ï¿½ï¿½Ã¼
 	 */
 	public MemberVO selectById(String id) {
 		Connection conn = null;

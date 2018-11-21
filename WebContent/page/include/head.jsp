@@ -5,7 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>게시판</title>
-<link rel="stylesheet" href="/Mission-Web-MVC01/assets/css/index.css">
-<link rel="stylesheet" href="/Mission-Web-MVC01/assets/css/table.css">
-<script src="/Mission-Web-MVC01/assets/js/jquery-3.3.1.min.js"></script>
-<script src="/Mission-Web-MVC01/assets/js/main.js"></script>
+<link rel="stylesheet" href="/carpool/assets/css/index.css">
+<link rel="stylesheet" href="/carpool/assets/css/table.css">
+
+<script src="/carpool/assets/js/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+
+<script src="/carpool/assets/js/main.js"></script>

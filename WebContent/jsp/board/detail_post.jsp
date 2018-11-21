@@ -63,8 +63,8 @@ $(document).ready(function(){
 				<th>첨부파일</th>
 				<td>
 					<c:forEach items="${ fileList }" var="file" >
-						<form name="downForm" action="/Mission-Web-MVC01/jsp/board/fileDownload.jsp" method="GET">
-							<img class="download" src="/Mission-Web-MVC01/upload/${file.fileSaveName}" width="100px">
+						<form name="downForm" action="/carpool/jsp/board/fileDownload.jsp" method="GET">
+							<img class="download" src="/carpool/upload/${file.fileSaveName}" width="100px">
 							<input type="hidden" name="oriName" value="${file.fileOriName}">
 							<input type="hidden" name="saveName" value="${file.fileSaveName}">
 						</form>
