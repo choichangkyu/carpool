@@ -12,26 +12,38 @@ public class AddUser_Controller implements Controller{
 	@Override
 	public String handRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		MemberDAO dao = new MemberDAO();
+		MemberVO user = new MemberVO();
 		
-		String name = request.getParameter("name");
-		String gender = request.getParameter("gender");
-		String email = request.getParameter("email");
 		String id = request.getParameter("id");
-		String loginId = request.getParameter("loginId");
-
-		MemberVO member = new MemberVO();
-		member.setEmail(email);
-		member.setId(id);
-		member.setName(name);
-		member.setPassword("pwd");
-		member.setBirth("10월7일");
-		member.setAge(20);
-		member.setTel("01071415275");
-
-		int cnt = dao.insertMember(member);
-		request.setAttribute("cnt", cnt);
+		String name =request.getParameter("name");
+		String password = request.getParameter("password");
+		String email = request.getParameter("email");
+		int age = Integer.parseInt(request.getParameter("age"));
+		String birth = request.getParameter("birth");
+		String tel = request.getParameter("tel1");
+		String addr = request.getParameter("basic_addr");
 		
-		return "/jsp/member/add_user.jsp";
+		user.setId(id);
+		user.setName(name);
+		user.setPassword(password);
+		user.setEmail(email);
+		user.setAge(age);
+		user.setBirth(birth);
+		user.setTel(tel);
+		user.setAddr(addr);
+		
+		System.out.println(user.toString());
+		
+		int i = dao.insertMember(user);
+		
+		request.setAttribute("insertCnt", i);
+		
+		if(i ==0) {
+			return "/page/member/add_user.jsp";
+		}else if(i == 1) {
+			return "/index.jsp";
+		}
+		return null;
 	}
 
 }
