@@ -1,13 +1,15 @@
-package kr.controller.board;
+package kr.controller.board.review;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.controller.Controller;
 
-public class AddPostForm_Controller implements Controller{
+public class Addboard_form_controller implements Controller{
+	
+	@Override
 	public String handRequest(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		return "/page/board/add_post.jsp";
+		return "/page/boardReview/add_board.jsp";
 	}
 
 }

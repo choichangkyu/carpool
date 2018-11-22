@@ -17,7 +17,7 @@ public class FreeBoardList_Controller implements Controller{
 		
 		request.setAttribute("boardList", BoardList);
 		
+
 		return "/page/board/free_list.jsp";
 	}
-
 }

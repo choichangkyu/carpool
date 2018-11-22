@@ -1,4 +1,4 @@
-package kr.controller.board;
+package post;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

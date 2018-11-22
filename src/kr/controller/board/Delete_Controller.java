@@ -11,7 +11,7 @@ public class Delete_Controller implements Controller {
 	@Override
 	public String handRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
-		int no = request.getParameter("no") == null ? 0 : Integer.parseInt(request.getParameter("no"));
+		int no = Integer.parseInt(request.getParameter("no"));
 
 		BoardDAO dao = new BoardDAO();
 
@@ -19,7 +19,7 @@ public class Delete_Controller implements Controller {
 
 		request.setAttribute("cnt", cnt);
 
-		return "/page/board/free_list.jsp";
+		return "/jsp/board/delete_board.jsp";
 	}
 
 }

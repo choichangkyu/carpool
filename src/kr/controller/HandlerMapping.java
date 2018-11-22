@@ -21,6 +21,7 @@ public class HandlerMapping {
 			 Set<Object> keys =prop.keySet();
 			 for(Object key : keys) {
 				 String class_name = prop.getProperty(key.toString());
+				 System.out.println(key + " : " + class_name);
 				 mappings.put(key.toString(), (Controller)Class.forName(class_name).newInstance());
 			 }
 		} catch (Exception e) {
@@ -30,7 +31,7 @@ public class HandlerMapping {
 	}
 	
 	public Controller get_Controller(String uri) {
-		//System.out.println(mappings.size());
+		System.out.println("mapping_size" + mappings.size());
 		return mappings.get(uri);		
 	}
 

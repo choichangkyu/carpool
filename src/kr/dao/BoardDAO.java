@@ -3,7 +3,6 @@ package kr.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +11,16 @@ import kr.util.JDBCClose;
 import kr.vo.BoardFileVO;
 import kr.vo.BoardVO;
 
+/**
+ * 게시판(t_board)를 CRUD하는 기능클래스
+ * 
+ * @author acorn
+ *
+ */
 public class BoardDAO {
+	/**
+	 * 조회기능
+	 */
 	public List<BoardVO> selectAllBoard() {
 
 		List<BoardVO> boardList = new ArrayList<>();
@@ -23,6 +31,7 @@ public class BoardDAO {
 		try {
 			conn = new ConnectionFactory().getConnection();
 			StringBuilder sql = new StringBuilder();
+			//sql.append(" select * ");
 			sql.append(" select * ");
 			//sql.append(" to_char(reg_date, 'yyyy-mm-dd') as reg_date ");
 			sql.append("  from c_board ");
@@ -77,29 +86,34 @@ public class BoardDAO {
 
 	/**
 	 * 게시글 삽입하는 기능
+	 * @return 
 	 */
-	public void insertBoard(BoardVO board) {
+	public int insertBoard(BoardVO board) {
+		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-
+		int result = 0;
+		
 		try {
 			conn = new ConnectionFactory().getConnection();
 			StringBuilder sql = new StringBuilder();
-			sql.append("insert into c_board( title, contents ) ");
-			sql.append(" values( ?, ? ) ");
+			sql.append("insert into c_board( board_no, title, id, content ) ");
+			sql.append(" values( seq_t_board_no.nextval, ?, ?, ? ) ");
+			
 			pstmt = conn.prepareStatement(sql.toString());
 
 			int loc = 1;
-
+			
 			pstmt.setString(loc++, board.getTitle());
+			pstmt.setString(loc++, board.getId());
 			pstmt.setString(loc++, board.getContent());
-
+			
 			pstmt.executeUpdate();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			JDBCClose.close(pstmt, conn);
-		}
+		} 
+		return result;
 
 	}
 
@@ -123,6 +137,7 @@ public class BoardDAO {
 			
 			int loc = 1;
 			pstmt.setInt(loc++, board);
+			
 			ResultSet rs = pstmt.executeQuery();
 			
 			if (rs.next()) {
@@ -141,7 +156,7 @@ public class BoardDAO {
 				int cnt = rs.getInt("cnt");
 				String regDate = rs.getString("reg_date");
 				//System.out.println(no +  " : dao");
-				hugiboard = new BoardVO(no, cnt, title, id, content, cnt, regDate, cnt, regDate);
+				hugiboard = new BoardVO(no, title, id, content, cnt, regDate);
 				//System.out.println(hugiboard + "dao ");
 			}
 
@@ -155,36 +170,40 @@ public class BoardDAO {
 	/**
 	 * 게시물 수정하는 기능
 	 */
-	public void updateBoard(BoardVO board) {
+	public int updateBoard(BoardVO board) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-
+		
+		int result = 0;
+		
 		try {
 
 			conn = new ConnectionFactory().getConnection();
 			StringBuilder sql = new StringBuilder();
+			
 			sql.append("update c_board ");
-			sql.append(" set title = ?, contents = ? ");
+			sql.append(" set title = ?, content = ? ");
 			sql.append(" where board_no = ? ");
 
 			int loc = 1;
-
 			pstmt = conn.prepareStatement(sql.toString());
+		
 			pstmt.setString(loc++, board.getTitle());
 			pstmt.setString(loc++, board.getContent());
 			pstmt.setInt(loc++, board.getBoard_no());
+			
+			System.out.println(pstmt + " : dao");
 
-			pstmt.executeUpdate();
+			result = pstmt.executeUpdate();
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			JDBCClose.close(pstmt, conn);
-		}
+		} 
+		return result;
 	}
 
 	/**
-	 * cnt를 증가하는 기능
+	 * view_cnt를 증가하는 기능
 	 */
 
 	public void updateViewCnt(int board_no) {
@@ -194,7 +213,8 @@ public class BoardDAO {
 		sql.append(" set cnt = cnt + 1 ");
 		sql.append(" where board_no = ? ");
 		try (Connection conn = new ConnectionFactory().getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
 			pstmt.setInt(1, board_no);
 			pstmt.executeUpdate();
 
@@ -218,12 +238,13 @@ public class BoardDAO {
 	public int deleteBoard(int no) {
 
 		StringBuilder sql = new StringBuilder();
-		sql.append("delete from c_board, c_board_file ");
+		sql.append("delete from c_board ");
 		sql.append(" where board_no = ?  ");
 		
 		int result = 0;
+		
 		try (Connection conn = new ConnectionFactory().getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
+				PreparedStatement pstmt = conn.prepareStatement(sql.toString())) {
 			
 			int loc = 1;
 			
@@ -237,4 +258,88 @@ public class BoardDAO {
 		return result;
 
 	}
+
+	// ----------------------------------첨부파일---------------------------------
+	/**
+	 * 첨부파일 저장하는기능
+	 */
+
+	/*public void insertFile(BoardFileVO fileVO) {
+//		 System.out.println(fileVO.toString()); -ok
+		StringBuilder sql = new StringBuilder();
+		sql.append("insert into c_board_file (no, board_no, file_ori_name, file_save_name, file_size)  ");
+		sql.append("values (seq_c_board_file_no.nextval, ?, ?, ?, ?) ");
+
+		try (Connection conn = new ConnectionFactory().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+
+		) {
+			pstmt.setInt(1, fileVO.getBoard_no());
+			pstmt.setString(2, fileVO.getFile_ori_name());
+			pstmt.setString(3, fileVO.getFile_save_name());
+			pstmt.setInt(4, fileVO.getFile_size());
+
+			int i = pstmt.executeUpdate();
+			System.out.println(i);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}*/
+
+	/**
+	 * 게시물 번호에 해당 첨부파일 조회하는 기능
+	 */
+
+	/*public List<BoardFileVO> selectFileByNo(int boardNo) {
+
+		List<BoardFileVO> fileList = new ArrayList<>();
+		StringBuilder sql = new StringBuilder();
+		sql.append("select no,file_ori_name,file_save_name,file_size ");
+		sql.append(" from t_board_file ");
+		sql.append(" where board_no = ? ");
+
+		try (Connection conn = new ConnectionFactory().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
+			pstmt.setInt(1, boardNo);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				BoardFileVO fileVO = new BoardFileVO();
+				fileVO.setNo(rs.getInt("no"));
+				fileVO.setFile_ori_name(rs.getString("file_ori_name"));
+				fileVO.setFile_save_name(rs.getString("file_save_name"));
+				fileVO.setFile_size(rs.getInt("file_size"));
+
+				fileList.add(fileVO);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return fileList;
+
+	}*/
+
+	/**
+	 * 첨부파일 삭제
+	 */
+
+/*	public void deleteFile(int boardNo) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("delete from t_board_file ");
+		sql.append(" where board_no = ?  ");
+		try (Connection conn = new ConnectionFactory().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
+			pstmt.setInt(1, boardNo);
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private PreparedStatement setInt(int i, int boardNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}*/
 }

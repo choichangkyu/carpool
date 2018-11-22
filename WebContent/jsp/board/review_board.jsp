@@ -12,7 +12,7 @@
 			<th width="15%">글쓴이</th>
 			<th width="10%">등록일</th>
 		</tr>
-		<c:forEach items="${ hugiList }" var="board">
+		<c:forEach items="${ reviewList }" var="board">
 			<tr>
 				<td>${ board.board_no }</td>
 				<td><a
@@ -26,7 +26,8 @@
 			</tr>
 		</c:forEach>
 	</table>
- 	<%-- <div id="page_step">
+
+	<%-- <div id="page_step">
 		<c:forEach var="i" begin="1" end="${step}" step="1">
 			<a class="page_link ${ page == i || page == null ? 'check' : '' }" href="list_post.do?page=${i}">${i}</a>
 		</c:forEach>
@@ -46,5 +47,5 @@
 		<input type="text" name="search">
 		<input type="submit" value="검색">		
 	</form> -->
-	<input type="button" value="목록으로">
+	<input type="button" value="새글작성">
 </div>

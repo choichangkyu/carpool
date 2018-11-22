@@ -15,8 +15,15 @@ function checkExt(obj) {
 
 function go_detail(no, is_login) {
 	if( is_login ){
-		location.href = "/carpool/board/detail_post.do?no=" + no;
+		location.href = "/carpool/board/detail_board.do?no=" + no;
 	} else {
 		alert("로그인하세요");
 	}
+}
+	function go_review_detail(no, is_login) {
+		if( is_login ){
+			location.href = "/carpool/boardReview/detail_board.do?no=" + no;
+		} else {
+			alert("로그인하세요");
+		}
 }

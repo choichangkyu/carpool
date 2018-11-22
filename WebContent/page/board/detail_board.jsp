@@ -16,7 +16,8 @@ $(document).ready(function(){
 	history.back(1);
 	</c:if> */
 })
- </script>
+
+</script>
 </head>
 <body>
 	<header>
@@ -29,4 +30,4 @@ $(document).ready(function(){
 		<%@ include file="/page/include/footer.jsp" %>
 	</footer>
 </body>
-</html> 
+</html>

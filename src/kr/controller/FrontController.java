@@ -36,6 +36,5 @@ public class FrontController extends HttpServlet {
 		} catch (Exception e) {
 			throw new ServletException(e);
 		}
-
 	}
 }

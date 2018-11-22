@@ -18,11 +18,11 @@
 			<th width="16%">글쓴이</th>
 			<th width="20%">등록일</th>
 		</tr>
-		<c:forEach items="${boardList}" var="board">
+		<c:forEach items="${ boardList}" var="board">
 			<tr>
 				<td>${board.no }</td>
 				<td><a href="javascript:go_detail('${board.no }', '${ not empty login_result }')">
-				${board.title }</a></td>
+				${ board.title }</a></td>
 				<td>${board.writer }</td>
 				<td>${board.regDate }</td>
 			</tr>

@@ -1,4 +1,4 @@
-package kr.controller.board;
+package post;
 
 import java.util.List;
 

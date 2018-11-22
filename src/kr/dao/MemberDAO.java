@@ -13,9 +13,9 @@ import kr.vo.MemberVO;
 
 public class MemberDAO {
 	/**
-	 * ��� ȸ�� ��ȸ
+	 * 占쏙옙占� 회占쏙옙 占쏙옙회
 	 * 
-	 * @return MemberVO��ü ����Ʈ
+	 * @return MemberVO占쏙옙체 占쏙옙占쏙옙트
 	 */
 	public List<MemberVO> selectAllMember() {
 		Connection conn = null;
@@ -26,7 +26,7 @@ public class MemberDAO {
 			StringBuilder sql = new StringBuilder();
 			// TODO Auto-generated catch block
 			sql.append(" select id, name, to_char(reg_date, 'YYYY-mm-dd') reg_date ");
-			sql.append(" from t_member ");
+			sql.append(" from c_member ");
 			sql.append(" order by reg_date asc ");
 
 			pstmt = conn.prepareStatement(sql.toString());
@@ -58,7 +58,7 @@ public class MemberDAO {
 			StringBuilder sql = new StringBuilder();
 			// TODO Auto-generated catch block
 			sql.append(" select id, name, to_char(reg_date, 'YYYY-mm-dd') reg_date ");
-			sql.append(" from t_member ");
+			sql.append(" from c_member ");
 			sql.append(" where rownum >= ? and rownum <= ? ");
 			sql.append(" order by reg_date asc ");
 			
@@ -83,9 +83,9 @@ public class MemberDAO {
 	}
 
 	/**
-	 * ȸ�� �߰�
+	 * 회占쏙옙 占쌩곤옙
 	 * @param board
-	 * @return �ݿ��� �� ����
+	 * @return 占쌥울옙占쏙옙 占쏙옙 占쏙옙占쏙옙
 	 */
 	public int insertMember(MemberVO member) {
 		Connection conn = null;
@@ -116,7 +116,7 @@ public class MemberDAO {
 	}
 	
 	/**
-	 * 로그인을 위한 쿼리문
+	 * 濡쒓렇�씤�쓣 �쐞�븳 荑쇰━臾�
 	 * @param member
 	 * @return
 	 */

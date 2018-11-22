@@ -1,4 +1,5 @@
-package kr.controller.board;
+package post;
+
 
 import java.util.List;
 
@@ -21,9 +22,9 @@ public class DetailPost_Controller implements Controller{
 		 if(! type.equals("edit"))
 			dao.viewBoard(no); */
 
-		/*String back_url = request.getHeader("referer"); // ����url�� ������������ �ƴϸ� ��ȸ�� ��
-		System.out.println("back" + back_url);
-		if (back_url.indexOf("board/edit_post") == -1)
+		/*String back_url = request.getHeader("referer"); 
+	
+		if (back_url.indexOf("board/update_board_form") == -1)
 			dao.viewBoard(no);*/
 
 		BoardVO board = dao.selectByNo(no); // ���� �Խù� 

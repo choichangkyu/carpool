@@ -1,7 +1,8 @@
+<%@page import="kr.vo.BoardVO"%>
+<%@page import="kr.dao.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="kr.dao.BoardDAO"%>
-<%@page import="kr.vo.BoardVO"%>
+
 <%
 	request.setCharacterEncoding("utf-8");
 	int no = request.getParameter("no") == null ? 0 : Integer.parseInt(request.getParameter("no"));
@@ -13,7 +14,7 @@
 %>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("input[name=post_list]").click(function() {
+		$("input[name = post_list]").click(function() {
 			location.href = "list_post.jsp";
 		});
 		$("input").click(function(event) {
