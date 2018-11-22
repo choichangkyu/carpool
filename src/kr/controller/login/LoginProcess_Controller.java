@@ -11,16 +11,20 @@ import kr.vo.MemberVO;
 public class LoginProcess_Controller implements Controller{
 	@Override
 	public String handRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
 		request.setCharacterEncoding("utf-8");
+		
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
 		
 		MemberDAO dao = new MemberDAO();
 		MemberVO member = new MemberVO();
+		
 		member.setId(id);
 		member.setPassword(password);
 		
 		MemberVO login_result = dao.selectForLogin(member);
+		System.out.println("loginprocess line27:"+member.toString());
 		
 		String msg = "";
 		if( login_result != null){

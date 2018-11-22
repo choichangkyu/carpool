@@ -16,7 +16,7 @@ $(document).ready(function(){
 				location.href = "<%= request.getContextPath() %>/board/delete_board.no?no=${no}";
 			break;
 		case "post_list":
-			location.href = "<%= request.getContextPath() %>/board/list_post.no";
+			location.href = "<%= request.getContextPath() %>/board/free_board_list.do";
 			break;
 		}
 	});
@@ -26,6 +26,7 @@ $(document).ready(function(){
 	});
 	
 });
+
 </script>
 <div align="center">
 	<hr>
@@ -51,7 +52,7 @@ $(document).ready(function(){
 			</tr>
 			<tr>
 				<th width="23%">내용</th>
-				<td><c:out value="${ board.content }" /></td>
+				<td><c:out value="${ board.content }"/></td>
 			</tr>
 			<tr>
 				<th width="23%">조회수</th>
@@ -59,9 +60,34 @@ $(document).ready(function(){
 			</tr>
 		</c:if>
 	</table>
+	<br>
 	<c:if test="${ login_result.id == board.id }">
-	<input class="btn" type="button" name="post_edit" value="수정"> 
-	<input class="btn" type="button" name="delete" value="삭제">
+		<input class="btn" type="button" name="post_edit" value="수정"> 
+		<input class="btn" type="button" name="delete" value="삭제">
 	</c:if>
-	<input class="btn" type="button" name="post_list" value="목록">
+	<br>
+	<!-- 댓글 목록 들어갈 자리 detail_board.do 에서 불러오면 됨-->
+	<c:forEach var="cl" items="${commentList }">
+			<table>
+				<tr>			
+					<th>작성자</th>
+					<td>${cl.writer }</td>
+				</tr>
+				<tr>			
+					<th>내용</th>
+					<td>${cl.content }</td>
+				</tr>
+				<tr>			
+					<th>등록일</th>
+					<td>${cl.regDate }</td>
+				</tr>	
+			</table>
+	</c:forEach>
+	<br>
+	<c:if test="${ ! empty login_result }">
+		<jsp:include page="/page/include/board_Comment.jsp"/>
+	</c:if>
+	
+	<br>
+		<input class="btn" type="button" name="post_list" value="목록">
 </div>

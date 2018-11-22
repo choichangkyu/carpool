@@ -23,6 +23,11 @@ li {
 	margin: 0 10px;
 }
 </style>
+<script>
+	function changeInfo(){
+		location.href="http://localhost:8888/member/change_user_info.do";
+	}
+</script>
 </head>
  <body>
 	<section>
@@ -64,6 +69,7 @@ li {
 		
 		</table>
 		</div>
+			<button onclick="changeInfo()">회원정보 수정하기</button>
 		</section>
 			
  	<%-- 	<div>

@@ -158,12 +158,12 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		MemberVO member = new MemberVO();
+		MemberVO member = null;
 		try {
 			conn = new ConnectionFactory().getConnection();
 			StringBuilder sql = new StringBuilder();
 			
-			sql.append(" select name, id, email, ");
+			sql.append(" select name, id, email, password, ");
 			sql.append(" birth, tel, age, ");
 			sql.append(" addr, reg_date ");
 			sql.append(" from c_member ");
@@ -175,7 +175,9 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 			
 			if (rs.next()) {
+				member = new MemberVO();
 				member.setName(rs.getString("name"));
+				member.setPassword(rs.getString("password"));
 				member.setId(rs.getString("id"));
 				member.setEmail(rs.getString("email"));
 				member.setBirth(rs.getString("birth"));
@@ -183,6 +185,7 @@ public class MemberDAO {
 				member.setAge(rs.getInt("age"));
 				member.setAddr(rs.getString("addr"));
 				member.setRegDate(rs.getString("reg_date"));
+				System.out.println(member.toString());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -199,7 +202,7 @@ public class MemberDAO {
 			conn = new ConnectionFactory().getConnection();
 			StringBuilder sql = new StringBuilder();
 
-			sql.append(" delete from t_member ");
+			sql.append(" delete from c_member ");
 			sql.append(" where id = ? ");
 
 			pstmt = conn.prepareStatement(sql.toString());
@@ -211,5 +214,9 @@ public class MemberDAO {
 		}
 		
 		return result;
+	}
+	
+	public void changeUserInfo(MemberVO user) {
+		
 	}
 }

@@ -1,9 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri ="http://java.sun.com/jsp/jstl/core" %>	
+
 <link rel="stylesheet" href="/carpool/assets/css/add_user_form.css">
 <script src="/carpool/assets/js/httpRequest.js"></script>
 <script type="text/javascript">
+
+		if(window.sessionStorage.getItem('token') != null){
+			
+			$.ajax({
+				url : '<%=request.getContextPath()%>/member/check_user.do',
+				type : 'post',
+				data : {
+					'token' : window.sessionStorage.getItem('token')
+				},
+				success : getData,
+				error : function(xhr, ajaxOptions, thrownError) {
+					alert(xhr.status);
+					alert(thrownError);
+				}
+			});
+		}	
+		
+		function getData(data){
+			if( data == 0) { //로그인성공
+				location.href="<%=request.getContextPath()%>";
+			}else { // 로그인실패				
+			}
+		}
+		
 	$(document).ready(function() {
+		
+		console.log("${Nid}");
+		console.log("${email}");
+		console.log("${gender}");
+		console.log("${birthday}");
+		console.log("${name}");
+		
+		
+		<%-- function getData(data){
+			if( data == 0) { //로그인성공
+				location.href="<%=request.getContextPath()%>";
+			}else { // 로그인실패				
+			}
+		} --%>
+		
 		var is_idCheck = false;
 		$("form[name=signform]").submit(function() {
 			return sign_check();
@@ -63,15 +104,13 @@
 
 			//전화번호
 			var tell_value = document.signform.tel1.value;
-			var tel2_value = document.signform.tel2.value;
-			var tel3_value = document.signform.tel3.value;
+			
 			var tel1_error_msg = document
 					.querySelector('div#tel span');
 
-			if (tell_value.length > 3 || tel2_value.length > 4
-					|| tel3_value.length > 4) {
+			if (tell_value.length != 11) {
 				is_ok = false;
-				tel1_error_msg.innerText = '3자,4자,4자 이하로 입력해주세요';
+				tel1_error_msg.innerText = '11자리 이하로 입력해주세요';
 			} else {
 				tel1_error_msg.innerText = '';
 			}
@@ -83,9 +122,9 @@
 			if (!check_value("basic_addr", false, 200))
 				is_ok = false;
 			//상세주소
-			if (!check_value("detail_addr", false, 200))
+			/* if (!check_value("detail_addr", false, 200))
 				is_ok = false;
-
+ 			*/
 			if (is_ok) {
 				return is_ok;
 			} else {
@@ -142,47 +181,82 @@
 <hr>
 <div id="add_user_form">
 	<h3>회원가입</h3>
-	<form action="/carpool/jsp/member/add_user.jsp" name="signform"
+	<form action="/carpool/member/add_user.do" name="signform"
 		method="post">
 		<div id="id">
-			<label for="id">* 아이디 : </label><input type="text" name="id">
+				<c:choose> 
+					<c:when test="${ empty Nid }">				
+						<label for="id">* 아이디 :</label><input type="text" name="id" value="${login_result.id}">&nbsp;&nbsp;
+					</c:when>
+					<c:otherwise>
+						<label for="id">* 아이디 :</label><input type="text" name ="id" value = "${Nid}" readonly>&nbsp;&nbsp;
+					</c:otherwise>
+				</c:choose>
 			<input type="button" value="중복체크" name="idCheck"><br>
 			<span class="error_msg"></span><br>
 		</div>
 		<div id="name">
-			<label for="name">* 이름 : </label><input type="text" name="name"><br>
+			<c:choose> 
+					<c:when test="${empty name }">				
+						<label for="name">* 이름 :</label><input type="text" name="name"><br>
+					</c:when>
+					<c:otherwise>
+						<label for="name">* 이름 :</label><input type="text" name ="name" value = "${name}" readonly><br>
+					</c:otherwise>
+				</c:choose>
 			<span class="error_msg"></span><br>
 		</div>
 
 		<div id="password">
-			<label for="password">* 비밀번호 : </label><input type="password"
-				name="password"><br> <span class="error_msg"></span><br>
+				<c:choose> 
+					<c:when test="${empty Nid }">				
+						<label for="password">* 패스워드 :</label><input type="text" name="password"><br>
+					</c:when>
+					<c:otherwise>
+						<input type="hidden" name ="password" value = "${Nid}">
+					</c:otherwise>
+				</c:choose>
+			 <span class="error_msg"></span>
 		</div>
 
 		<div id="email">
-			<label for="email">이메일 : </label><input type="email" name="email"
-				placeholder="xxx@xxx.com" pattern="{30}@{20}" /><br> <span
-				class="error_msg"></span><br>
-		</div>
-
-		<div id="tel">
-			<label for="tel1">전화번호 : </label> <input type="text" name="tel1">
-			<input type="text" name="tel2"> <input type="text"
-				name="tel3"><br> <span class="error_msg"></span><br>
-		</div>
-
-		<div id="post">
-			<label for="post">우편번호 : </label><input type="text" name="post"><br>
+				<c:choose> 
+					<c:when test="${empty email }">				
+						<label for="email"> 이메일 :</label><input type="text" name="email" value="${login_result.email }"><br>
+					</c:when>
+					<c:otherwise>
+						<label for="email"> 이메일 :</label><input type="email" name="email"
+											placeholder="xxx@xxx.com" pattern="{30}@{20}" value="${email }" readonly><br>
+					</c:otherwise>
+				</c:choose>
 			<span class="error_msg"></span><br>
 		</div>
-
-		<div id="basic_addr">
-			<label for="basic_addr">기본주소 : </label><input type="text"
-				name="basic_addr"><br> <span class="error_msg"></span><br>
+		
+		<div>
+			<label for ="age">나이 : </label><input type="text" name ="age" value="${login_result.age }">
+			<br> <span class="error_msg"></span><br>
 		</div>
-		<div id="detail_addr">
-			<label for="detail_addr">상세주소 : </label><input type="text"
-				name="detail_addr"><br> <span class="error_msg"></span><br>
+		
+		<div id="birth">
+			<c:choose> 
+					<c:when test="${empty birthday }">				
+						<label for="birth"> 생일 :</label><input type="text" name="birth" value="${ login_result.birth}"><br>
+					</c:when>
+					<c:otherwise>
+						<label for="birth"> 생일 :</label><input type ="text" placeholder =" -없이 4자리를 입력해주세요" name ="birth" value="${birthday}" readonly><br>
+					</c:otherwise>
+			</c:choose>
+			<span class="error_msg"></span><br>
+		</div>
+		
+		<div id="tel">
+			<label for="tel1">전화번호 : </label> <input type="text" name="tel1" placeholder="-없이 입력해주세요" size="11" value="${login_result.tel}">
+			<br><span class="error_msg"></span><br>
+		</div>
+		
+		<div id="basic_addr">
+			<label for="basic_addr">주소 : </label><input type="text"
+				name="basic_addr" value="${login_result.addr}"><br> <span class="error_msg"></span><br>
 		</div>
 
 		<input type="submit" value="회원가입" name="submit">

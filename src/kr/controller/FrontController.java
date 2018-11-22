@@ -16,13 +16,17 @@ public class FrontController extends HttpServlet {
 		String proploLocation = config.getInitParameter("proplocation");
 		mapping = new HandlerMapping(proploLocation);
 	}
-	test
+
 	@Override
 	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		request.setCharacterEncoding("utf-8");	
 		String uri = request.getRequestURI();
 		String context = request.getContextPath();
 		uri = uri.substring(context.length());
+		
+		System.out.println(context);
+		System.out.println(uri);
 		
 		try {
 			Controller controller = mapping.get_Controller(uri);

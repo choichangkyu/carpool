@@ -12,7 +12,6 @@ public class Logout_Controller implements Controller{
 	public String handRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		session.removeAttribute("login_result");
-		
 		request.setAttribute("msg", "로그아웃되었습니다");
 		return "/jsp/login/logout.jsp";
 	}
