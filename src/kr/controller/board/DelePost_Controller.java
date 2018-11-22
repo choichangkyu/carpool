@@ -17,15 +17,6 @@ public class DelePost_Controller implements Controller{
 		int no = request.getParameter("no") == null ? 0 : Integer.parseInt(request.getParameter("no"));
 
 		BoardDAO dao = new BoardDAO();
-		
-		List<BoardFileVO> fileList = dao.selectFileList(no);
-		
-		for(BoardFileVO fileVO : fileList){
-			File file = new File("C:/lecture/web-workspace/carpool/WebContent/upload/" + fileVO.getFileSaveName() );
-			if(file.exists())
-				file.delete();
-		}
-		//dao.deleteFile(no);
 
 		int cnt = dao.deleteBoard(no);
 		

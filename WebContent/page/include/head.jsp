@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시판</title>
+<title>GACHIGA</title>
 <link rel="stylesheet" href="/carpool/assets/css/index.css">
 <link rel="stylesheet" href="/carpool/assets/css/table.css">
 

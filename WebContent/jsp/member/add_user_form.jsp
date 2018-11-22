@@ -4,17 +4,47 @@
 <script src="/carpool/assets/js/httpRequest.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		//alert( sessionStorage.getItem('token') );
-		
 		var is_idCheck = false;
-		$("form[name=signform]").submit(function() {
-			return sign_check();
+		
+		//회원가입
+		$("form[name=signform]").submit(function(e) {
+			if( !sign_check() )
+				return false;
+			e.preventDefault();
+			$.ajax({
+				url : '<%=request.getContextPath()%>/member/add_user.do',
+				type : 'post',
+				data : {
+					'id' : $("input[name=id]").val(),
+					'password' : $("input[name=password]").val(),
+					'name' : $("input[name=name]").val(),
+					'email' : $("input[name=email]").val(),
+					'birth' : $("input[name=birth]").val(),
+					'tel1' : $("input[name=tel1]").val(),
+					'age' : $("input[name=age]").val(),
+					'addr' : $("input[name=addr]").val(),
+				},
+				success : function(data){
+					if(data == 1){
+						alert("회원가입을 성공했습니다");
+						location.href="<%=request.getContextPath()%>";
+					} else {
+						alert("회원가입을 실패했습니다");
+						location.href="<%=request.getContextPath()%>/member/add_user_form.do";
+					}
+				},
+				error : function(xhr, ajaxOptions, thrownError) {
+					alert(xhr.status);
+					alert(thrownError);
+				}
+			});
 		});
 		
 		$("input[name=idCheck]").click(function(){
 			idCheck();
 		});
 		
+		//중복체크
 		function idCheck(){
 			var id = document.signform.id;
 			$.ajax({
@@ -25,10 +55,10 @@
 				},
 				success : function(data){
 					if(data == 1){
-						debugTrace("중복된 아이디입니다");
+						$("div#id span").html("중복된 아이디입니다");
 						is_idCheck = false;
 					} else {
-						debugTrace("사용가능한 아이디입니다");
+						$("div#id span").html("사용가능한 아이디입니다");
 						is_idCheck = true;
 					}
 				},
@@ -38,23 +68,8 @@
 				}
 			});
 		}
-		
-		function callback(){
-			if(httpRequest.readyState == 4){
-				if(httpRequest.status == 200){
-					var memberList = eval(httpRequest.responseText.trim());
-					
-					var id = document.signform.id.value;
-					
-				}
-			}
-		}
-		
-		function debugTrace(msg){ // id 중복체크 메세지
-			var debug = document.querySelector('div#id span');
-			debug.innerHTML = msg;
-		}
-		
+				
+		// 입력체크
 		function sign_check() {
 			var is_ok = true;
 
@@ -69,32 +84,20 @@
 				is_ok = false;
 
 			//이메일
-			if (!check_value("email", false, 50))
+			if (!check_value("email", false, 20))
 				is_ok = false;
-
+			//생일
+			if (!check_value("birth", false, 10))
+				is_ok = false;
 			//전화번호
-			var tell_value = document.signform.tel1.value;
-			var tel2_value = document.signform.tel2.value;
-			var tel3_value = document.signform.tel3.value;
-			var tel1_error_msg = document
-					.querySelector('div#tel span');
-
-			if (tell_value.length > 3 || tel2_value.length > 4
-					|| tel3_value.length > 4) {
+			if (!check_value("tel1", false, 11))
 				is_ok = false;
-				tel1_error_msg.innerText = '3자,4자,4자 이하로 입력해주세요';
-			} else {
-				tel1_error_msg.innerText = '';
-			}
-
-			//우편번호
-			if (!check_value("post", false, 7))
+			// 나이
+			if (!check_value("age", false, 3))
 				is_ok = false;
+			
 			//기본주소
 			if (!check_value("basic_addr", false, 200))
-				is_ok = false;
-			//상세주소
-			if (!check_value("detail_addr", false, 200))
 				is_ok = false;
 
 			if (is_ok) {
@@ -121,20 +124,6 @@
 					break;
 				}
 				return false;
-			} else if (type == "email") {
-				if (value.indexOf("@") > 30) {
-					$(error_msg).text(
-							"이메일 아이디를 " + 30 + "자 이하로 입력해주세요");
-					return false;
-
-				} else if (value.length
-						- (value.indexOf("@") + 1) > 20) {
-					$(error_msg).text(
-							"이메일 도메인을 " + 20 + "자 이하로 입력해주세요");
-					return false;
-				} else {
-					$(error_msg).text('');
-				}
 			} else if (value.length > leng) {
 				$(error_msg).text(leng + "자 이하로 입력해주세요");
 				return false;
@@ -153,21 +142,21 @@
 <hr>
 <div id="add_user_form">
 	<h3>회원가입</h3>
-	<form action="/carpool/jsp/member/add_user.jsp" name="signform"
-		method="post">
+	<form action="/carpool/jsp/member/add_user.jsp" name="signform"	method="post">
 		<div id="id">
 			<label for="id">* 아이디 : </label><input type="text" name="id">
-			<input type="button" value="중복체크" name="idCheck"><br>
+			<input type="button" value="중복체크" name="idCheck">
 			<span class="error_msg"></span><br>
 		</div>
 		<div id="name">
-			<label for="name">* 이름 : </label><input type="text" name="name"><br>
+			<label for="name">* 이름 : </label><input type="text" name="name">
 			<span class="error_msg"></span><br>
 		</div>
 
 		<div id="password">
-			<label for="password">* 비밀번호 : </label><input type="password"
-				name="password"><br> <span class="error_msg"></span><br>
+			<label for="password">* 비밀번호 : </label>
+			<input type="password" name="password">
+			<span class="error_msg"></span><br>
 		</div>
 
 		<div id="email">
@@ -176,25 +165,28 @@
 				class="error_msg"></span><br>
 		</div>
 
-		<div id="tel">
-			<label for="tel1">전화번호 : </label> <input type="text" name="tel1">
-			<input type="text" name="tel2"> <input type="text"
-				name="tel3"><br> <span class="error_msg"></span><br>
+		<div>
+			<label for="age">나이 : </label><input type="text" name="age">
+			<br> <span class="error_msg"></span><br>
 		</div>
 
-		<div id="post">
-			<label for="post">우편번호 : </label><input type="text" name="post"><br>
+		<div>
+			<label for="birth">생년월일 : </label><input type="text"
+				placeholder=" -없이 6자리를 입력해주세요" name="birth"> <br> <span
+				class="error_msg"></span><br>
+		</div>
+
+		<div id="tel">
+			<label for="tel1">전화번호 : </label> <input type="text" name="tel1"
+				placeholder="-없이 입력해주세요"> <br>
 			<span class="error_msg"></span><br>
 		</div>
 
 		<div id="basic_addr">
-			<label for="basic_addr">기본주소 : </label><input type="text"
+			<label for="basic_addr">주소 : </label><input type="text"
 				name="basic_addr"><br> <span class="error_msg"></span><br>
 		</div>
-		<div id="detail_addr">
-			<label for="detail_addr">상세주소 : </label><input type="text"
-				name="detail_addr"><br> <span class="error_msg"></span><br>
-		</div>
+
 
 		<input type="submit" value="회원가입" name="submit">
 	</form>

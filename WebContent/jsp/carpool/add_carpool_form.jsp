@@ -19,11 +19,11 @@ $(document).ready(function(){
 				'start_time' : $("input[name=start_time]").val(),
 				'end_place' : $("input[name=end_place]").val(),
 				'end_place_name' : $("input[name=end_place_name]").val(),
-				'smoke' : $("input[name=smoke]").val(),
+				'smoke' : $("input[name=smoke]:checked").val(),
 				'money' : $("input[name=money]").val(),
 				'user_cnt' : $("input[name=user_cnt]").val(),
-				'post_type' : $("input[name=post_type]").val(),
-				'add_info' : $("input[name=add_info]").val()
+				'post_type' : $("input[name=post_type]:checked").val(),
+				'add_info' : $("textarea[name=add_info]").val()
 			},
 			success : callback,
 			error : function(xhr, ajaxOptions, thrownError) {
@@ -36,7 +36,7 @@ $(document).ready(function(){
 			alert('글 작성 성공');
 		else 
 			alert('글 작성 실패');
-		location.href="<%=request.getContextPath()%>/";
+		location.href="<%=request.getContextPath()%>/carpool/list_carpool.do	";
 	}
 	
 	function checkForm() {
@@ -61,22 +61,20 @@ $(document).ready(function(){
 	<form name="cForm" method="post">
 		<div class="input_wrap">
 			<div>
-			<span>글타입</span>
-			운전자 : <input type="radio" value="driver" name="post_type">
-			탑승자 : <input type="radio" value="rider" name="post_type">
+				<span>글타입</span>
+				운전자 : <input type="radio" value="driver" name="post_type" checked="checked">
+				탑승자 : <input type="radio" value="rider" name="post_type">
 			</div>
 		</div>
 		<div class="input_wrap">
 			<div>
 			<span>흡연여부</span>
-			O <input type="radio" value="0" name="smoke">
-			X <input type="radio" value="1" name="post_type">
+			O <input type="radio" value="0" name="smoke" checked="checked">
+			X <input type="radio" value="1" name="smoke">
 			</div>
 		</div>
 		<div>
-			<!-- writer_id -->
-			<input type="hidden" name="writer_id" value="cck9003">
-<%-- 			<input type="hidden" name="writer_id" value="${ login_result.id }"> --%>
+			<input type="hidden" name="writer_id" value="${ login_result.id }">
 		</div>
 		<div class="input_wrap">
 			<span>출발일시</span>

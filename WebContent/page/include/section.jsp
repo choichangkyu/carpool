@@ -7,16 +7,15 @@
 	/* BoardDAO dao = new BoardDAO();
 	pageContext.setAttribute("boardList", dao.selectBoardList(1, 5)); */
 %>
-<div align="center">
-	<hr>
+<div id="container">
 	<h3>최신글목록</h3>
 
 	<table class="list_table">
 		<tr>
 			<th width="7%">번호</th>
 			<th>제목</th>
-			<th width="16%">글쓴이</th>
 			<th width="20%">등록일</th>
+			<th width="16%">글쓴이</th>
 		</tr>
 		<c:forEach items="${boardList}" var="board">
 			<tr>

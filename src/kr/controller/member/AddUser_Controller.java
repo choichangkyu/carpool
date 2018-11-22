@@ -32,18 +32,11 @@ public class AddUser_Controller implements Controller{
 		user.setTel(tel);
 		user.setAddr(addr);
 		
-		System.out.println(user.toString());
-		
 		int i = dao.insertMember(user);
 		
-		request.setAttribute("insertCnt", i);
+		request.setAttribute("cnt", i);
 		
-		if(i ==0) {
-			return "/page/member/add_user.jsp";
-		}else if(i == 1) {
-			return "/index.jsp";
-		}
-		return null;
+		return "/jsp/member/add_user.jsp";
 	}
 
 }

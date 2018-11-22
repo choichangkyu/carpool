@@ -15,9 +15,10 @@ public class CarpoolVO {
 	private String post_type;
 	private String add_info;
 	private String reg_date;
+	private int apply_cnt;
+
 	public CarpoolVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public int getNo() {
 		return no;
@@ -108,6 +109,12 @@ public class CarpoolVO {
 	}
 	public void setEnd_place_name(String end_place_name) {
 		this.end_place_name = end_place_name;
+	}
+	public int getApply_cnt() {
+		return apply_cnt;
+	}
+	public void setApply_cnt(int apply_cnt) {
+		this.apply_cnt = apply_cnt;
 	}
 	
 }
