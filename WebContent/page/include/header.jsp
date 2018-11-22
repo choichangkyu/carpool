@@ -12,6 +12,7 @@ MemberVO member = (MemberVO)session.getAttribute("member");
 <link rel="stylesheet" href="/carpool/assets/css/login.css">
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script type="text/javascript">
+
 	$(document).ready(function(){
 		var modal = $("#myModal");
 		var modalContent = $(".modal_content");
@@ -59,6 +60,8 @@ MemberVO member = (MemberVO)session.getAttribute("member");
 		});
 		function callback(data) {
 			alert(data.trim());
+			window.sessionStorage.removeItem("token");
+			console.log(window.sessionStorage.getItem('token'));
 			location.reload();
 		}
 		
@@ -106,31 +109,32 @@ MemberVO member = (MemberVO)session.getAttribute("member");
 		<c:otherwise>
 			<a>${ login_result.name }님</a>
 			<input class="btn" type="button" name="logout" value="로그아웃">	
-			<a href="<%=request.getContextPath()%>/member/detail_user.jsp?id=${login_result.id}">마이페이지</a>
+			<a href="<%=request.getContextPath()%>/myPage/MyPageMain.do">마이페이지</a>
 		</c:otherwise>
 	</c:choose>
-		<div id="myModal" class="modal">
-			<div class="modal_content">
-				<span class="close">&times;</span>
-				<form action ="<%= request.getContextPath() %>/login/loginProcess.do" name="login_form" class="loginBox">
-					<table>
-						<tr>
-							<td align="center">아이디</td>
-							<td><input type="text" name="login_id"></td>
-						</tr>
-						<tr>
-							<td align="center">패스워드</td>
-							<td><input type="password" name="login_password"></td>
-						</tr>	
-					</table>
-				<div id="login_btn" align= "right">	
-					<input type="submit" value="로그인">
-				</div>	
-				</form>	
-				<div class="loginBox">
-					<jsp:include page="/jsp/login/login_naver.jsp"/>
-				</div>
+		
+	<div id="myModal" class="modal">
+		<div class="modal_content">
+			<span class="close">&times;</span>
+			<form action ="<%= request.getContextPath() %>/login/loginProcess.do" name="login_form" class="loginBox">
+				<table>
+					<tr>
+						<td align="center">아이디</td>
+						<td><input type="text" name="login_id"></td>
+					</tr>
+					<tr>
+						<td align="center">패스워드</td>
+						<td><input type="password" name="login_password"></td>
+					</tr>	
+				</table>
+			<div id="login_btn" align= "right">	
+				<input type="submit" value="로그인">
+			</div>	
+			</form>	
+			<div class="loginBox">
+				<jsp:include page="/jsp/login/login_naver.jsp"/>
 			</div>
 		</div>
+	</div>
 	</div>
 </div>

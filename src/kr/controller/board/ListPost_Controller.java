@@ -13,7 +13,7 @@ public class ListPost_Controller implements Controller{
 	public String handRequest(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		BoardDAO dao = new BoardDAO();
 
-		// ÆäÀÌÂ¡
+		// ï¿½ï¿½ï¿½ï¿½Â¡
 		List<BoardVO> allBoardList = dao.selectAllBoard();
 
 		String r_page = request.getParameter("page");
@@ -23,17 +23,17 @@ public class ListPost_Controller implements Controller{
 		int start = 1 + (_page - 1) * post_size; // 1:1 2:6
 		int end = _page * post_size; // 1:5 2:10
 
-		List<BoardVO> BoardList = dao.selectBoardList(start, end);
+		/*List<BoardVO> BoardList = dao.selectBoardList(start, end);
 
 		int step = (int) Math.ceil((double) allBoardList.size() / post_size);
 		
-		//Ã·ºÎÆÄÀÏ Ç¥½Ã
+		//Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
 		List<Integer> BoardNoList = dao.selectAllFileList();
 		
 		request.setAttribute("step", step);
 		request.setAttribute("page", _page);
 		request.setAttribute("boardList", BoardList);
-		request.setAttribute("boardNoList", BoardNoList);
+		request.setAttribute("boardNoList", BoardNoList);*/
 		
 		return "/page/board/list_post.jsp";
 	}

@@ -17,7 +17,7 @@
 	String email = "";
 	String tel = "";
 	String addr = "";
-	if (de_member.getEmail_id() != null && de_member.getEmail_domain() != null) {
+	/* if (de_member.getEmail_id() != null && de_member.getEmail_domain() != null) {
 		email = de_member.getEmail_id() + '@' + de_member.getEmail_domain();
 	}
 	if (de_member.getTel1() != null && de_member.getTel2() != null && de_member.getTel3() != null) {
@@ -29,7 +29,7 @@
 
 	pageContext.setAttribute("email", email);
 	pageContext.setAttribute("tel", tel);
-	pageContext.setAttribute("addr", addr);
+	pageContext.setAttribute("addr", addr); */
 %>
 <script type="text/javascript">
 	$(document).ready(function() {

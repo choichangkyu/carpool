@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+ #comment_box{
+ 	
+ 	height : 100px;
+ 	width : 700px;
+ 	background-color: #CEECF5; 
+ }
+ 
+ #table {display: table; width: 90%;}
+.row {display: table-row;}
+.cell {display: table-cell; padding: 3px; border-bottom: 1px solid #DDD;}
+.col1 { width: 40%;}
+.col2 {width: 60%;}
